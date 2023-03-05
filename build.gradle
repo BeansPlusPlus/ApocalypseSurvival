@@ -1,0 +1,40 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.5.30'
+}
+
+java {
+    sourceCompatibility = 16
+    targetCompatibility = 16
+}
+
+group 'beansplusplus.apocalypsesurvival'
+version '1.0-SNAPSHOT'
+
+configurations.all { resolutionStrategy.cacheChangingModulesFor 0, 'seconds' }
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven {
+        url "https://maven.pkg.github.com/BeansPlusPlus/BeansGamePlugin"
+        credentials {
+            username = System.getenv("GITHUB_ACTOR")
+            password = System.getenv("GITHUB_TOKEN")
+        }
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.5.30"
+    implementation 'org.codehaus.groovy:groovy-all:3.0.13'
+    compileOnly 'beansplusplus:beansgameplugin:1.0-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT'
+}
