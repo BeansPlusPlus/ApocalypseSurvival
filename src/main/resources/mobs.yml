@@ -1,0 +1,8 @@
+ZOMBIE:
+  spawns:
+    - 1.5:0.01
+    - 10:0.2
+SKELETON:
+  spawns:
+    - 1.5:0.01
+    - 10:0.2

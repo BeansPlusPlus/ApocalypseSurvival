@@ -6,6 +6,7 @@ import beansplusplus.beansgameplugin.GameState
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.GameMode
+import org.bukkit.entity.LivingEntity
 import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 
@@ -14,7 +15,7 @@ class ApocalypseSurvivalGame(
   config: GameConfiguration,
   private val state: GameState
 ) : Game, Listener {
-  private val value: Int = config.getValue("some_number")
+  private var level: Double = 1.0
 
   override fun start() {
     for (player in Bukkit.getOnlinePlayers()) {
@@ -40,8 +41,7 @@ class ApocalypseSurvivalGame(
   fun timer() {
     if (state.isPaused) return
 
-    for (player in Bukkit.getOnlinePlayers()) {
-      player.sendMessage("${ChatColor.YELLOW}Here is a value: $value")
-    }
+    level += 0.01
+
   }
 }
